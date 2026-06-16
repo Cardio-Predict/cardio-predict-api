@@ -77,6 +77,7 @@ Após iniciar o servidor, abra o seu navegador e acesse: http://localhost:5000
 
 ## 👥 Integrantes da Equipe
 - Maria Cecília de Lima e Silva (cecilmari33@gmail.com)
+- Maria Eduarda Pereira Vilarim (vilarim051@gmail.com)
 
 ---
 
