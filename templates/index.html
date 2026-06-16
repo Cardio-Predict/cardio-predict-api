@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predição de Doença Cardíaca</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Sistema de Predição de Doença Cardíaca</h1>
+        <p class="subtitle">Preencha os dados do paciente para obter uma predição</p>
+
+        {% if erro %}
+            <div class="alert alert-error">
+                <strong>Erro:</strong> {{ erro }}
+            </div>
+        {% endif %}
+
+        <form method="POST" class="form-container">
+            <div class="form-section">
+                <h2>Informações Básicas</h2>
+                
+                <div class="form-group">
+                    <label for="idade">Idade (anos):</label>
+                    <input type="number" id="idade" name="idade" min="18" max="120" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="0">Feminino</option>
+                        <option value="1">Masculino</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Sintomas e Exames</h2>
+
+                <div class="form-group">
+                    <label for="tipo_dor_peito">Tipo de Dor no Peito:</label>
+                    <select id="tipo_dor_peito" name="tipo_dor_peito" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="0">Angina Típica</option>
+                        <option value="1">Angina Atípica</option>
+                        <option value="2">Dor Não Anginosa</option>
+                        <option value="3">Assintomática</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pressao_arterial_repouso">Pressão Arterial em Repouso (mm Hg):</label>
+                    <input type="number" id="pressao_arterial_repouso" name="pressao_arterial_repouso" min="50" max="250" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="colesterol">Colesterol (mg/dl):</label>
+                    <input type="number" id="colesterol" name="colesterol" min="100" max="600" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="acucar_jejum">Açúcar em Jejum > 120 mg/dl:</label>
+                    <select id="acucar_jejum" name="acucar_jejum" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="eletro_repouso">Eletrocardiograma em Repouso:</label>
+                    <select id="eletro_repouso" name="eletro_repouso" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="0">Normal</option>
+                        <option value="1">Anormalidade ST-T</option>
+                        <option value="2">Hipertrofia Ventricular</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="freq_cardiaca_max">Frequência Cardíaca Máxima:</label>
+                    <input type="number" id="freq_cardiaca_max" name="freq_cardiaca_max" min="60" max="220" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="angina_exercicio">Angina Induzida pelo Exercício:</label>
+                    <select id="angina_exercicio" name="angina_exercicio" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="0">Não</option>
+                        <option value="1">Sim</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="depressao_st">Depressão ST (induzida por exercício):</label>
+                    <input type="number" id="depressao_st" name="depressao_st" min="0" max="10" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inclinacao_st">Inclinação ST:</label>
+                    <select id="inclinacao_st" name="inclinacao_st" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="0">Ascendente</option>
+                        <option value="1">Plano</option>
+                        <option value="2">Descendente</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="num_vasos_principais">Número de Vasos Principais Coloridos:</label>
+                    <select id="num_vasos_principais" name="num_vasos_principais" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="thalassemia">Thalassemia:</label>
+                    <select id="thalassemia" name="thalassemia" required>
+                        <option value="">-- Selecione --</option>
+                        <option value="1">Normal</option>
+                        <option value="2">Defeito Fixo</option>
+                        <option value="3">Defeito Reversível</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">🔍 Fazer Predição</button>
+        </form>
+
+        <!-- Resultado da Predição -->
+{% if predicao is defined and predicao is not none %}
+    <div class="result-container">
+        <h2>📊 Resultado da Predição</h2>
+        
+        {% if predicao == 1 %}
+            <div class="alert alert-warning">
+                <strong>⚠️ Risco Detectado!</strong>
+                <p>O modelo indica uma possível presença de doença cardíaca.</p>
+                {% if risco is defined %}
+                    <p><strong>Probabilidade de Risco:</strong> {{ "%.2f"|format(risco) }}%</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <strong>✅ Baixo Risco</strong>
+                <p>O modelo indica um baixo risco de doença cardíaca.</p>
+                {% if risco is defined %}
+                    <p><strong>Probabilidade de Risco:</strong> {{ "%.2f"|format(risco) }}%</p>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if dados_entrada is defined %}
+        <div class="result-details">
+            <h3>Dados Processados:</h3>
+            <ul>
+                <li><strong>Idade:</strong> {{ dados_entrada.idade }} anos</li>
+                <li><strong>Frequência Cardíaca Máxima:</strong> {{ dados_entrada.freq_cardiaca_max }} bpm</li>
+                <li><strong>Colesterol:</strong> {{ dados_entrada.colesterol }} mg/dl</li>
+                <li><strong>Pressão Arterial:</strong> {{ dados_entrada.pressao_arterial_repouso }} mm Hg</li>
+            </ul>
+        </div>
+        {% endif %}
+
+        <p class="disclaimer">
+            <strong>⚠️ Aviso:</strong> Esta predição é apenas uma ferramenta de suporte. 
+            Sempre consulte um médico para diagnóstico e tratamento adequados.
+        </p>
+    </div>
+{% endif %}
+    </div>
+</body>
+</html>
