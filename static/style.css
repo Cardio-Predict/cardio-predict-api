@@ -6,9 +6,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f4f6f8;
     min-height: 100vh;
-    padding: 20px;
 }
 
 .container {
@@ -16,34 +15,38 @@ body {
     margin: 0 auto;
     background: white;
     border-radius: 10px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e1e4e8;
     padding: 40px;
 }
 
 h1 {
-    color: #333;
-    text-align: center;
+    color: #1e293b;
+    text-align: left;
     margin-bottom: 10px;
-    font-size: 2.5em;
+    font-size: 1.6em;
 }
 
 .subtitle {
-    text-align: center;
-    color: #666;
+    text-align: left;
+    color: #64748b;
     margin-bottom: 30px;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .form-section {
     margin-bottom: 30px;
+    padding: 24px;
+    border-radius: 10px;
     padding-bottom: 20px;
-    border-bottom: 2px solid #eee;
+    border: 1px solid #f1f5f9;
+    background-color: #f8fafc;
 }
 
 .form-section h2 {
-    color: #667eea;
+    color: #D7314B;
     margin-bottom: 15px;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .form-group {
@@ -70,14 +73,14 @@ select {
 input[type="number"]:focus,
 select:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #D7314B;
     box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
 }
 
 .btn-submit {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #D7314B;
     color: white;
     border: none;
     border-radius: 5px;
@@ -162,6 +165,122 @@ select:focus {
     margin-top: 20px;
     color: #0c5aa0;
     border-radius: 3px;
+}
+
+/* --- ESTILOS DO HEADER --- */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 15px 40px;
+    border-bottom: 1px solid #e1e4e8;
+    margin-bottom: 30px; /* Dá um respiro antes do container principal */
+    position: relative; /* Para garantir que fique acima de outros elementos */
+    width: 100%;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    background-color: #c92a3f; /* Fundo arredondado carmesim */
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.brand-subtitle {
+    font-size: 0.85em;
+    color: #64748b;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.user-name {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.user-role {
+    font-size: 0.8em;
+    color: #64748b;
+}
+
+.header-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px; /* Quadrado arredondado como na imagem */
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+.btn-logout {
+    border: none; /* O botão de sair na imagem geralmente não tem a borda forte */
+}
+
+/* Responsividade para o Header */
+@media (max-width: 768px) {
+    .app-header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .user-info {
+        text-align: left;
+    }
 }
 
 @media (max-width: 600px) {

@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predição de Doença Cardíaca</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
+    <header class="app-header">
+        <div class="header-left">
+            <div class="logo-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">CardioPredict</span>
+                <span class="brand-subtitle">Apoio ao diagnóstico</span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="user-info">
+                <span class="user-name">Sra Madu</span>
+                <span class="user-role">Médica</span>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
-        <h1>🏥 Sistema de Predição de Doença Cardíaca</h1>
-        <p class="subtitle">Preencha os dados do paciente para obter uma predição</p>
+        <h1>Avaliação do paciente</h1>
+        <p class="subtitle">Preencha os dados clinicos para estimar a probabilidade de doença cardíaca.</p>
 
         {% if erro %}
-            <div class="alert alert-error">
-                <strong>Erro:</strong> {{ erro }}
-            </div>
+        <div class="alert alert-error">
+            <strong>Erro:</strong> {{ erro }}
+        </div>
         {% endif %}
 
         <form method="POST" class="form-container">
             <div class="form-section">
                 <h2>Informações Básicas</h2>
-                
+
                 <div class="form-group">
                     <label for="idade">Idade (anos):</label>
                     <input type="number" id="idade" name="idade" min="18" max="120" required>
@@ -130,50 +153,51 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">🔍 Fazer Predição</button>
+            <button type="submit" class="btn-submit">Fazer Predição</button>
         </form>
 
         <!-- Resultado da Predição -->
-{% if predicao is defined and predicao is not none %}
-    <div class="result-container">
-        <h2>📊 Resultado da Predição</h2>
-        
-        {% if predicao == 1 %}
+        {% if predicao is defined and predicao is not none %}
+        <div class="result-container">
+            <h2>Resultado da Predição</h2>
+
+            {% if predicao == 1 %}
             <div class="alert alert-warning">
                 <strong>⚠️ Risco Detectado!</strong>
                 <p>O modelo indica uma possível presença de doença cardíaca.</p>
                 {% if risco is defined %}
-                    <p><strong>Probabilidade de Risco:</strong> {{ "%.2f"|format(risco) }}%</p>
+                <p><strong>Probabilidade de Risco:</strong> {{ "%.2f"|format(risco) }}%</p>
                 {% endif %}
             </div>
-        {% else %}
+            {% else %}
             <div class="alert alert-success">
                 <strong>✅ Baixo Risco</strong>
                 <p>O modelo indica um baixo risco de doença cardíaca.</p>
                 {% if risco is defined %}
-                    <p><strong>Probabilidade de Risco:</strong> {{ "%.2f"|format(risco) }}%</p>
+                <p><strong>Probabilidade de Risco:</strong> {{ "%.2f"|format(risco) }}%</p>
                 {% endif %}
             </div>
-        {% endif %}
+            {% endif %}
 
-        {% if dados_entrada is defined %}
-        <div class="result-details">
-            <h3>Dados Processados:</h3>
-            <ul>
-                <li><strong>Idade:</strong> {{ dados_entrada.idade }} anos</li>
-                <li><strong>Frequência Cardíaca Máxima:</strong> {{ dados_entrada.freq_cardiaca_max }} bpm</li>
-                <li><strong>Colesterol:</strong> {{ dados_entrada.colesterol }} mg/dl</li>
-                <li><strong>Pressão Arterial:</strong> {{ dados_entrada.pressao_arterial_repouso }} mm Hg</li>
-            </ul>
+            {% if dados_entrada is defined %}
+            <div class="result-details">
+                <h3>Dados Processados:</h3>
+                <ul>
+                    <li><strong>Idade:</strong> {{ dados_entrada.idade }} anos</li>
+                    <li><strong>Frequência Cardíaca Máxima:</strong> {{ dados_entrada.freq_cardiaca_max }} bpm</li>
+                    <li><strong>Colesterol:</strong> {{ dados_entrada.colesterol }} mg/dl</li>
+                    <li><strong>Pressão Arterial:</strong> {{ dados_entrada.pressao_arterial_repouso }} mm Hg</li>
+                </ul>
+            </div>
+            {% endif %}
+
+            <p class="disclaimer">
+                <strong>⚠️ Aviso:</strong> Esta predição é apenas uma ferramenta de suporte.
+                Sempre consulte um médico para diagnóstico e tratamento adequados.
+            </p>
         </div>
         {% endif %}
-
-        <p class="disclaimer">
-            <strong>⚠️ Aviso:</strong> Esta predição é apenas uma ferramenta de suporte. 
-            Sempre consulte um médico para diagnóstico e tratamento adequados.
-        </p>
-    </div>
-{% endif %}
     </div>
 </body>
+
 </html>
