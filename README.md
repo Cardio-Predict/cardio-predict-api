@@ -81,6 +81,7 @@ Após iniciar o servidor, abra o seu navegador e acesse: http://localhost:5000
 - Maria Cecília de Lima e Silva (cecilmari33@gmail.com)
 - Maria Clara Moutinho Albuquerque Silva (moutinhomaria2910@gmail.com)
 - Maria Eduarda Pereira Vilarim (vilarim051@gmail.com)
+- Matheus Alves de Arruda (matheusalves2906@gmail.com)
 
 ---
 
